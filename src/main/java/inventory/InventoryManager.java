@@ -28,7 +28,7 @@ public class InventoryManager {
         int existingInventory = inventory.getOrDefault(ingredient, 0);
         inventory.put(ingredient, existingInventory + quantity);
     }
-    
+
     public void resetInventory() {
         inventory.clear();
     }

@@ -1,1 +1,5 @@
+Models/MachineDto.class
+inventory/InventoryManager.class
 CoffeeMachineMainApplication.class
+inventory/InventoryManager$1.class
+inventory/InventoryManager$InventoryManagerHolder.class
