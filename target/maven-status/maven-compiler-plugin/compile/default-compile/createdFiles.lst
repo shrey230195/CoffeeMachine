@@ -1,5 +1,12 @@
-Models/MachineDto.class
+model/Beverage.class
+model/Machine.class
+model/CoffeeMachineDetails.class
+model/Outlet.class
+operations/CoffeeMachine.class
 inventory/InventoryManager.class
-CoffeeMachineMainApplication.class
+models/inputDto/MachineDto.class
+models/inputDto/OutletDto.class
 inventory/InventoryManager$1.class
 inventory/InventoryManager$InventoryManagerHolder.class
+CoffeeMachineMainApplication.class
+models/inputDto/CoffeeMachineInputDto.class

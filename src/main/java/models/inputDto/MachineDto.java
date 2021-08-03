@@ -1,4 +1,4 @@
-package Models;
+package models.inputDto;
 
 import lombok.Getter;
 
@@ -8,8 +8,8 @@ import java.util.HashMap;
 @Getter
 public class MachineDto {
 
-    @JsonProperty
-    private int outlets;
+    @JsonProperty("outlets")
+    private OutletDto outlets;
 
     @JsonProperty("total_items_quantity")
     private HashMap<String, Integer> ingredientQuantityMap;
