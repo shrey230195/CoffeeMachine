@@ -1,10 +1,13 @@
 package operations;
 
-import inventory.InventoryManager;
+import inventory.InventoryManagerImpl;
 import models.BeverageDto;
 import models.messageDto.PreparationStatusDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BeverageCreator implements Runnable {
+    private static final Logger logger = LoggerFactory.getLogger(CoffeeMachine.class);
     private BeverageDto beverage;
 
     BeverageCreator(BeverageDto beverage) {
@@ -13,8 +16,8 @@ public class BeverageCreator implements Runnable {
 
     @Override
     public void run() {
-        PreparationStatusDto status = InventoryManager.getInstance().checkAndUpdateInventorySync(beverage);
-        System.out.println(status.message());
+        PreparationStatusDto status = InventoryManagerImpl.getInstance().checkAndUpdateInventorySync(beverage);
+        logger.info(status.message());
     }
 
     @Override

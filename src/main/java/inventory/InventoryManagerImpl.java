@@ -12,18 +12,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * This class takes care of handling all the inventory.
  */
 
-public class InventoryManager {
+public class InventoryManagerImpl {
     private final ConcurrentHashMap<String, Integer> inventory = new ConcurrentHashMap<>();
 
-    private InventoryManager() {
+    private InventoryManagerImpl() {
     }
 
     //Using Holder pattern ensures thread safe initialisation of the object,
     private static class InventoryManagerHolder {
-        public static final InventoryManager instance = new InventoryManager();
+        public static final InventoryManagerImpl instance = new InventoryManagerImpl();
     }
 
-    public static InventoryManager getInstance() {
+    public static InventoryManagerImpl getInstance() {
         return InventoryManagerHolder.instance;
     }
 
@@ -43,14 +43,17 @@ public class InventoryManager {
                 if(value== null) {
                     status.setAmountLeft(0);
                     status.setPreparable(false);
+                    status.setIngredient(ingredient);
                     return value;
                 }
                 if (value == -1 || value == 0) {
                     status.setAmountLeft(0);
                     status.setPreparable(false);
+                    status.setIngredient(ingredient);
                 }
                 status.setPreparable(value >= requiredIngredientMap.get(ingredient));
                 status.setAmountLeft(value);
+                status.setIngredient(ingredient);
                 if(status.isPreparable()) {
                     value -= requiredIngredientMap.get(ingredient);
                     updatedIngredients.put(ingredient, requiredIngredientMap.get(ingredient));
@@ -85,10 +88,12 @@ public class InventoryManager {
             if (ingredientInventoryCount == -1 || ingredientInventoryCount == 0) {
                 status.setAmountLeft(0);
                 status.setPreparable(false);
+                status.setIngredient(ingredient);
                 break;
             } else if (requiredIngredientMap.get(ingredient) > ingredientInventoryCount) {
                 status.setAmountLeft(ingredientInventoryCount);
                 status.setPreparable(false);
+                status.setIngredient(ingredient);
                 break;
             }
         }

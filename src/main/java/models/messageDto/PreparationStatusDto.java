@@ -9,12 +9,12 @@ public class PreparationStatusDto {
     private boolean isPreparable;
     private int amountLeft;
     private String beverage;
+    private String ingredient;
 
     public String message() {
-        System.out.println(this.isPreparable +" "+ this.beverage);
         if(this.isPreparable) {
-            return this.beverage + " can be prepared";
+            return this.beverage + " is prepared";
         }
-        return this.beverage + "can't be prepared, only " + this.amountLeft + "left in stock";
+        return this.beverage + "cannot be prepared because" + this.ingredient + "is not available, only " + this.amountLeft + " left in stock";
     }
 }

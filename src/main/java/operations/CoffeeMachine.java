@@ -2,9 +2,11 @@ package operations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import inventory.InventoryManager;
+import inventory.InventoryManagerImpl;
 import models.BeverageDto;
 import models.inputDto.CoffeeMachineInputDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,18 +16,20 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class CoffeeMachine {
+    private static final Logger logger = LoggerFactory.getLogger(CoffeeMachine.class);
     private static CoffeeMachine coffeeMachine;
     public CoffeeMachineInputDto coffeeMachineInputDto;
-    private InventoryManager inventoryManager;
+    private InventoryManagerImpl inventoryManagerImpl;
     private static final int MAX_QUEUED_REQUEST = 100;
     private ThreadPoolExecutor executor;
 
     private CoffeeMachine(String jsonInput) throws IOException {
-        System.out.println("New Machine");
+        logger.info("Initializing New Machine");
         this.coffeeMachineInputDto = new ObjectMapper().readValue(jsonInput, CoffeeMachineInputDto.class);
-        int outlet = coffeeMachineInputDto.getMachine().getOutlets().getCount();
-        System.out.println("outlets" + outlet);
-        executor = new ThreadPoolExecutor(outlet, outlet, 5000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(MAX_QUEUED_REQUEST));
+        int outlets = coffeeMachineInputDto.getMachine().getOutlets().getCount();
+        logger.info("Total outlets in the Machine: " + outlets);
+        logger.info("Creating " + outlets + " threads");
+        executor = new ThreadPoolExecutor(outlets, outlets, 5000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(MAX_QUEUED_REQUEST));
         executor.setRejectedExecutionHandler(new RejectedOperationHandler());
     }
 
@@ -37,27 +41,37 @@ public class CoffeeMachine {
     }
 
     public void serve() {
-        this.inventoryManager = InventoryManager.getInstance();
+        this.inventoryManagerImpl = InventoryManagerImpl.getInstance();
 
         Map<String, Integer> ingredients = coffeeMachineInputDto.getMachine().getIngredientQuantityMap();
         System.out.println(ingredients.toString());
         for (String key : ingredients.keySet()) {
-            inventoryManager.addInventory(key, ingredients.get(key));
+            inventoryManagerImpl.addInventory(key, ingredients.get(key));
         }
 
         HashMap<String, HashMap<String, Integer>> beverages = coffeeMachineInputDto.getMachine().getBeverages();
-        System.out.println(beverages.toString());
 
         for (String key : beverages.keySet()) {
             BeverageDto beverage = new BeverageDto(key, beverages.get(key));
-            System.out.println(key);
             coffeeMachine.addBeverageRequest(beverage);
         }
     }
 
     public void addBeverageRequest(BeverageDto beverage) {
         BeverageCreator task = new BeverageCreator(beverage);
-        System.out.println(task.toString());
         executor.execute(task);
+    }
+
+    public void stopMachine() {
+        executor.shutdown();
+    }
+
+    /**
+     * Resetting inventory and stopping coffee machine.
+     * This is only used for testing. In real world, no need for resetting unless machine is stopped.
+     * */
+    public void resetMachine() {
+        this.stopMachine();
+        this.inventoryManagerImpl.resetInventory();
     }
 }
