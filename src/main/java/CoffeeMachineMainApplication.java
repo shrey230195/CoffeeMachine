@@ -13,7 +13,6 @@ public class CoffeeMachineMainApplication {
         System.out.println(jsonInput);
         CoffeeMachine coffeeMachine = CoffeeMachine.getInstance(jsonInput);
         coffeeMachine.serve();
-        System.out.println("Application started");
     }
 
 }

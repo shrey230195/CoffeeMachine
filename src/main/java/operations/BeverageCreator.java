@@ -1,6 +1,8 @@
 package operations;
 
+import inventory.InventoryManager;
 import models.BeverageDto;
+import models.messageDto.PreparationStatusDto;
 
 public class BeverageCreator implements Runnable {
     private BeverageDto beverage;
@@ -11,8 +13,8 @@ public class BeverageCreator implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("task ran successfully");
-
+        PreparationStatusDto status = InventoryManager.getInstance().checkAndUpdateInventorySync(beverage);
+        System.out.println(status.message());
     }
 
     @Override
