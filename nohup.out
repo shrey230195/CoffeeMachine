@@ -1,3 +1,4 @@
 no main manifest attribute, in target/CoffeeMachine-1.0-SNAPSHOT.jar
 no main manifest attribute, in target/CoffeeMachine-1.0-SNAPSHOT.jar
 Error: Could not find or load main class com.CoffeeMachine.CoffeeMachineMainApplication
+no main manifest attribute, in target/CoffeeMachine-1.0-SNAPSHOT.jar

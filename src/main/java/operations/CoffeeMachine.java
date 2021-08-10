@@ -42,9 +42,7 @@ public class CoffeeMachine {
 
     public void serve() {
         this.inventoryManagerImpl = InventoryManagerImpl.getInstance();
-
         Map<String, Integer> ingredients = coffeeMachineInputDto.getMachine().getIngredientQuantityMap();
-        System.out.println(ingredients.toString());
         for (String key : ingredients.keySet()) {
             inventoryManagerImpl.addInventory(key, ingredients.get(key));
         }

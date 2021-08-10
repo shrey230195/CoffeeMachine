@@ -15,6 +15,6 @@ public class PreparationStatusDto {
         if(this.isPreparable) {
             return this.beverage + " is prepared";
         }
-        return this.beverage + "cannot be prepared because" + this.ingredient + "is not available, only " + this.amountLeft + " left in stock";
+        return this.beverage + " cannot be prepared because " + this.ingredient + " is not available, only " + this.amountLeft + " left in stock";
     }
 }

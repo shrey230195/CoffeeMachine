@@ -1,10 +1,10 @@
 /Users/apple/IdeaProjects/CoffeeMachine/src/main/java/models/inputDto/CoffeeMachineInputDto.java
 /Users/apple/IdeaProjects/CoffeeMachine/src/main/java/operations/CoffeeMachine.java
 /Users/apple/IdeaProjects/CoffeeMachine/src/main/java/models/inputDto/OutletDto.java
-/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/model/Beverage.java
-/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/model/Outlet.java
+/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/models/BeverageDto.java
 /Users/apple/IdeaProjects/CoffeeMachine/src/main/java/models/inputDto/MachineDto.java
-/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/model/Machine.java
-/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/model/CoffeeMachineDetails.java
+/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/models/messageDto/PreparationStatusDto.java
+/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/inventory/InventoryManagerImpl.java
 /Users/apple/IdeaProjects/CoffeeMachine/src/main/java/CoffeeMachineMainApplication.java
-/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/inventory/InventoryManager.java
+/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/operations/RejectedOperationHandler.java
+/Users/apple/IdeaProjects/CoffeeMachine/src/main/java/operations/BeverageCreator.java

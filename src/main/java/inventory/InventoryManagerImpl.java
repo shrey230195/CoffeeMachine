@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class InventoryManagerImpl {
-    private final ConcurrentHashMap<String, Integer> inventory = new ConcurrentHashMap<>();
+    public ConcurrentHashMap<String, Integer> inventory = new ConcurrentHashMap<>();
 
     private InventoryManagerImpl() {
     }
@@ -70,11 +70,15 @@ public class InventoryManagerImpl {
         return status;
     }
 
-
-
+    // method to add/refill an ingredient
     public void addInventory(String ingredient, int quantity) {
-        int existingInventory = inventory.getOrDefault(ingredient, 0);
-        inventory.put(ingredient, existingInventory + quantity);
+        inventory.compute(ingredient, (key, value) -> {
+            if(value == null) {
+                value = 0;
+            }
+            value += quantity;
+            return value;
+        });
     }
 
     // Making the entire operation synchronized
@@ -97,7 +101,6 @@ public class InventoryManagerImpl {
                 break;
             }
         }
-
         if (status.isPreparable()) {
             for (String ingredient : requiredIngredientMap.keySet()) {
                 int existingInventory = inventory.getOrDefault(ingredient, 0);

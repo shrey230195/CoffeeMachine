@@ -16,7 +16,7 @@ public class CoffeeMachineMainApplication {
         String jsonInput = FileUtils.readFileToString(file, "UTF-8");
         CoffeeMachine coffeeMachine = CoffeeMachine.getInstance(jsonInput);
         coffeeMachine.serve();
-        coffeeMachine.resetMachine();
+
     }
 
 }
